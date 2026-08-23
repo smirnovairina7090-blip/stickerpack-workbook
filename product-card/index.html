@@ -40,7 +40,7 @@
       <section class="panel hero" id="start" data-stage="start">
         <div class="hero-copy">
           <div class="eyebrow"><span class="status-pulse"></span> проект на один урок</div>
-          <h1>Создай карточку товара, которая <em>цепляет за 3 секунды</em></h1>
+          <h1><span>Создай карточку товара,</span><em>которая цепляет за 3 секунды</em></h1>
           <p class="hero-lead">Привет! Я твой проектный навигатор. Проведу от идеи и чистого холста до готового рекламного визуала в Canva - вручную и с помощью ИИ.</p>
           <div class="hero-actions">
             <button class="primary-button jump-button" data-target="decode" type="button">Начать проект <span>→</span></button>
@@ -148,12 +148,12 @@
       <section class="panel" id="hierarchy" data-stage="hierarchy">
         <div class="section-heading">
           <span class="step-number">03</span>
-          <div><div class="eyebrow">сначала крупное - потом детали</div><h2>Лаборатория иерархии</h2><p>Расположи элементы в том порядке, в котором зритель должен их заметить. Кнопки меняют приоритет и размер блоков.</p></div>
+          <div><div class="eyebrow">сначала крупное - потом детали</div><h2>Лаборатория иерархии</h2><p>Расставь элементы в порядке внимания. Первый номер зритель замечает сразу, четвёртый остаётся поддерживающей деталью.</p></div>
         </div>
 
         <div class="hierarchy-lab">
           <div class="hierarchy-controls">
-            <div class="window-title"><b>Порядок чтения</b><small>перестрой список</small></div>
+            <div class="window-title"><b>Порядок чтения</b><small>первое = самое заметное</small></div>
             <ol id="hierarchyList" class="hierarchy-list">
               <li data-key="product"><span class="rank">1</span><b>Фото товара</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
               <li data-key="headline"><span class="rank">2</span><b>Главная польза</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
@@ -161,16 +161,16 @@
               <li data-key="decor"><span class="rank">4</span><b>Декор</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
             </ol>
             <button class="secondary-button" id="checkHierarchy" type="button">Проверить маршрут</button>
-            <p class="quiz-feedback" id="hierarchyFeedback" aria-live="polite">Подсказка: декор не должен быть первым.</p>
+            <p class="quiz-feedback" id="hierarchyFeedback" aria-live="polite">Перемещай строки - номера на макете обновятся сразу.</p>
           </div>
 
           <div class="live-poster-wrap">
-            <div class="live-poster" id="livePoster">
-              <div class="poster-decor"><span></span><span></span><span></span></div>
-              <div class="poster-product" data-preview="product">ВАШ<br>ТОВАР</div>
-              <h3 data-preview="headline">ГЛАВНАЯ<br>ПОЛЬЗА</h3>
-              <div class="poster-facts" data-preview="facts"><span>факт 01</span><span>факт 02</span><span>факт 03</span></div>
-              <small>макет 1200 × 1600</small>
+            <div class="live-poster layout-diagonal" id="livePoster" aria-label="Предпросмотр иерархии">
+              <div class="poster-decor poster-layer" data-preview-key="decor" data-rank="4" aria-label="Декор"><span></span><span></span><span></span></div>
+              <div class="poster-product poster-layer" data-preview="product" data-preview-key="product" data-rank="1">ВАШ ТОВАР</div>
+              <h3 class="poster-layer" data-preview="headline" data-preview-key="headline" data-rank="2">ГЛАВНАЯ ПОЛЬЗА</h3>
+              <div class="poster-facts poster-layer" data-preview="facts" data-preview-key="facts" data-rank="3"><span>факт 01</span><span>факт 02</span><span>факт 03</span></div>
+              <small>визуальный черновик 3:4</small>
             </div>
             <div class="poster-controls">
               <label>Фон <input type="color" id="bgColor" data-save="bgColor" value="#f6f4e9"></label>
@@ -186,6 +186,7 @@
           <button type="button" class="layout-choice" data-layout="split"><span class="layout-mini split"></span><b>Разделение</b><small>структурно</small></button>
           <button type="button" class="layout-choice" data-layout="center"><span class="layout-mini center"></span><b>Центр</b><small>спокойно</small></button>
         </div>
+        <p class="layout-feedback" id="layoutFeedback" aria-live="polite">Диагональ ведёт взгляд от заголовка к товару и фактам.</p>
         <label class="stage-complete"><input type="checkbox" data-progress="hierarchy"> <span>Я выбрал(а) порядок чтения, композицию и палитру</span></label>
       </section>
 
