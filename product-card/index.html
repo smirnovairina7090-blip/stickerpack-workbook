@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#332e3b">
+  <meta name="description" content="Интерактивная проектная мастерская Креайтивики: создаём рекламную карточку товара в Canva и с помощью ИИ.">
+  <title>Карточка товара: проектная мастерская</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#start" aria-label="К началу листа">
+      <span class="brand-mark" aria-hidden="true">{ }</span>
+      <span><b>Креайтивика</b><small>проектная мастерская</small></span>
+    </a>
+    <div class="topbar-progress" aria-label="Прогресс проекта">
+      <span id="progressText">0% готово</span>
+      <div class="progress-track"><i id="progressBar"></i></div>
+    </div>
+    <button class="icon-button" id="resetButton" type="button" title="Очистить ответы" aria-label="Очистить все ответы">↺</button>
+  </header>
+
+  <div class="app-shell">
+    <aside class="stage-nav" aria-label="Этапы проекта">
+      <div class="stage-nav__title"><span>Маршрут</span><b id="doneCounter">0 / 8</b></div>
+      <button class="stage-link is-active" data-target="start" type="button"><span>00</span>Старт<i></i></button>
+      <button class="stage-link" data-target="decode" type="button"><span>01</span>Декодер дизайна<i></i></button>
+      <button class="stage-link" data-target="brief" type="button"><span>02</span>Бриф<i></i></button>
+      <button class="stage-link" data-target="hierarchy" type="button"><span>03</span>Иерархия<i></i></button>
+      <button class="stage-link" data-target="canva" type="button"><span>04</span>Сборка в Canva<i></i></button>
+      <button class="stage-link" data-target="ai" type="button"><span>05</span>ИИ-лаборатория<i></i></button>
+      <button class="stage-link" data-target="quality" type="button"><span>06</span>Контроль качества<i></i></button>
+      <button class="stage-link" data-target="finish" type="button"><span>07</span>Финиш<i></i></button>
+      <div class="autosave"><span class="autosave-dot"></span>Ответы сохраняются</div>
+    </aside>
+
+    <main>
+      <section class="panel hero" id="start" data-stage="start">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-pulse"></span> проект на один урок</div>
+          <h1>Создай карточку товара, которая <em>цепляет за 3 секунды</em></h1>
+          <p class="hero-lead">Привет! Я твой проектный навигатор. Проведу от идеи и чистого холста до готового рекламного визуала в Canva - вручную и с помощью ИИ.</p>
+          <div class="hero-actions">
+            <button class="primary-button jump-button" data-target="decode" type="button">Начать проект <span>→</span></button>
+            <div class="time-chip"><span>◷</span><b>45-60 мин</b><small>8 этапов</small></div>
+          </div>
+        </div>
+
+        <div class="hero-window browser-window" aria-label="Схема будущего проекта">
+          <div class="browser-bar"><span></span><span></span><span></span><b>project://product-card</b></div>
+          <div class="project-canvas">
+            <div class="canvas-grid" aria-hidden="true"></div>
+            <div class="product-ghost">ТОВАР</div>
+            <div class="headline-ghost">ГЛАВНАЯ<br>ПОЛЬЗА</div>
+            <div class="benefit-ghost">факт 01</div>
+            <div class="benefit-ghost second">факт 02</div>
+            <span class="shape shape-a"></span><span class="shape shape-b"></span><span class="shape shape-c"></span>
+            <div class="hero-cursor">↖<small>твой ход</small></div>
+          </div>
+        </div>
+
+        <div class="mission-strip">
+          <div><span>Финальный результат</span><b>Вертикальная карточка 1200 × 1600 px</b></div>
+          <div><span>Главный навык</span><b>Визуальная иерархия</b></div>
+          <div><span>Инструменты</span><b>Canva + 24AI</b></div>
+        </div>
+      </section>
+
+      <section class="panel" id="decode" data-stage="decode">
+        <div class="section-heading">
+          <span class="step-number">01</span>
+          <div><div class="eyebrow">сначала разберись</div><h2>Декодер хорошей карточки</h2><p>Карточка товара - это рекламный визуал, который быстро показывает сам продукт, его главную пользу и проверяемые факты.</p></div>
+        </div>
+
+        <div class="definition-grid">
+          <article class="definition-card accent-yellow"><span>01</span><h3>Фокус</h3><p>Первое, что замечает глаз. В уроке это фото товара.</p></article>
+          <article class="definition-card accent-blue"><span>02</span><h3>Иерархия</h3><p>Порядок чтения: товар → заголовок → факты → детали.</p></article>
+          <article class="definition-card accent-green"><span>03</span><h3>Контраст</h3><p>Разница цветов, размеров и форм, которая делает смысл заметным.</p></article>
+          <article class="definition-card accent-pink"><span>04</span><h3>Воздух</h3><p>Свободное место, которое помогает элементам не спорить друг с другом.</p></article>
+        </div>
+
+        <div class="challenge-window">
+          <div class="window-title"><span class="mini-dots">•••</span><b>Микро-квест: что должно быть самым заметным?</b><small>1 верный ответ</small></div>
+          <div class="quiz-options" data-quiz="focus">
+            <button type="button" data-answer="wrong">Три декоративные фигуры</button>
+            <button type="button" data-answer="correct">Товар и его главная польза</button>
+            <button type="button" data-answer="wrong">Все элементы одинаково</button>
+          </div>
+          <p class="quiz-feedback" id="focusFeedback" aria-live="polite">Выбери вариант - я сразу дам подсказку.</p>
+        </div>
+
+        <div class="rules-board">
+          <div>
+            <div class="eyebrow">формула урока</div>
+            <h3>1 + 1 + 3</h3>
+            <p><b>1 товар</b> + <b>1 главный заголовок</b> + до <b>3 коротких фактов</b>. Декор поддерживает идею, но не заменяет её.</p>
+          </div>
+          <div class="reading-route" aria-label="Порядок чтения карточки">
+            <span>ТОВАР</span><i>→</i><span>ПОЛЬЗА</span><i>→</i><span>ФАКТЫ</span>
+          </div>
+        </div>
+        <label class="stage-complete"><input type="checkbox" data-progress="decode"> <span>Я понял(а), зачем карточке один главный фокус</span></label>
+      </section>
+
+      <section class="panel" id="brief" data-stage="brief">
+        <div class="section-heading">
+          <span class="step-number">02</span>
+          <div><div class="eyebrow">не открывай редактор без идеи</div><h2>Собери мини-бриф</h2><p>Бриф - короткое описание задачи. Он не даёт дизайну превратиться в случайный набор красивых элементов.</p></div>
+        </div>
+
+        <div class="brief-layout">
+          <div class="work-card">
+            <label class="field-label">1. Что рекламируем?</label>
+            <div class="choice-grid product-choices" data-choice-group="product">
+              <button type="button" data-value="детское одеяло">Одеяло</button>
+              <button type="button" data-value="ночник">Ночник</button>
+              <button type="button" data-value="термокружка">Термокружка</button>
+              <button type="button" data-value="кроссовки">Кроссовки</button>
+            </div>
+            <input class="text-input" id="customProduct" data-save="customProduct" type="text" placeholder="Или напиши свой товар">
+
+            <label class="field-label" for="audience">2. Для кого?</label>
+            <input class="text-input" id="audience" data-save="audience" type="text" placeholder="Например: для родителей малышей">
+
+            <label class="field-label" for="mainBenefit">3. Главная польза - одна</label>
+            <input class="text-input" id="mainBenefit" data-save="mainBenefit" type="text" maxlength="48" placeholder="Например: тёплое, лёгкое и дышащее">
+            <div class="char-counter"><span id="benefitCount">0</span>/48</div>
+
+            <label class="field-label">4. Какой характер?</label>
+            <div class="choice-grid mood-choices" data-choice-group="mood">
+              <button type="button" data-value="спокойный и заботливый">Спокойный</button>
+              <button type="button" data-value="яркий и энергичный">Энергичный</button>
+              <button type="button" data-value="чистый и технологичный">Технологичный</button>
+            </div>
+          </div>
+
+          <div class="brief-preview browser-window">
+            <div class="browser-bar"><span></span><span></span><span></span><b>brief.json</b></div>
+            <pre id="briefCode"><code>{
+  "товар": "...",
+  "аудитория": "...",
+  "польза": "...",
+  "характер": "..."
+}</code></pre>
+            <div class="tip-note"><b>Совет</b><p>Свойства товара нельзя придумывать. Используй только те факты, которые можно подтвердить.</p></div>
+          </div>
+        </div>
+
+        <div class="fact-builder">
+          <div><span class="eyebrow">три факта</span><h3>Что докажет пользу?</h3><p>Пиши коротко: состав, размер, функция, материал или особенность.</p></div>
+          <div class="fact-inputs">
+            <input class="text-input" data-save="fact1" type="text" maxlength="32" placeholder="Факт 01">
+            <input class="text-input" data-save="fact2" type="text" maxlength="32" placeholder="Факт 02">
+            <input class="text-input" data-save="fact3" type="text" maxlength="32" placeholder="Факт 03">
+          </div>
+        </div>
+        <label class="stage-complete"><input type="checkbox" data-progress="brief"> <span>Мой бриф готов: товар, аудитория, польза и факты определены</span></label>
+      </section>
+
+      <section class="panel" id="hierarchy" data-stage="hierarchy">
+        <div class="section-heading">
+          <span class="step-number">03</span>
+          <div><div class="eyebrow">сначала крупное - потом детали</div><h2>Лаборатория иерархии</h2><p>Расположи элементы в том порядке, в котором зритель должен их заметить. Кнопки меняют приоритет и размер блоков.</p></div>
+        </div>
+
+        <div class="hierarchy-lab">
+          <div class="hierarchy-controls">
+            <div class="window-title"><b>Порядок чтения</b><small>перестрой список</small></div>
+            <ol id="hierarchyList" class="hierarchy-list">
+              <li data-key="product"><span class="rank">1</span><b>Фото товара</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
+              <li data-key="headline"><span class="rank">2</span><b>Главная польза</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
+              <li data-key="facts"><span class="rank">3</span><b>Факты</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
+              <li data-key="decor"><span class="rank">4</span><b>Декор</b><div><button type="button" data-move="up" aria-label="Выше">↑</button><button type="button" data-move="down" aria-label="Ниже">↓</button></div></li>
+            </ol>
+            <button class="secondary-button" id="checkHierarchy" type="button">Проверить маршрут</button>
+            <p class="quiz-feedback" id="hierarchyFeedback" aria-live="polite">Подсказка: декор не должен быть первым.</p>
+          </div>
+
+          <div class="live-poster-wrap">
+            <div class="live-poster" id="livePoster">
+              <div class="poster-decor"><span></span><span></span><span></span></div>
+              <div class="poster-product" data-preview="product">ВАШ<br>ТОВАР</div>
+              <h3 data-preview="headline">ГЛАВНАЯ<br>ПОЛЬЗА</h3>
+              <div class="poster-facts" data-preview="facts"><span>факт 01</span><span>факт 02</span><span>факт 03</span></div>
+              <small>макет 1200 × 1600</small>
+            </div>
+            <div class="poster-controls">
+              <label>Фон <input type="color" id="bgColor" data-save="bgColor" value="#f6f4e9"></label>
+              <label>Акцент <input type="color" id="accentColor" data-save="accentColor" value="#94c122"></label>
+              <label>Текст <input type="color" id="textColor" data-save="textColor" value="#332e3b"></label>
+              <span id="contrastBadge" class="contrast-badge">Контраст: проверяю</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-layouts">
+          <button type="button" class="layout-choice is-selected" data-layout="diagonal"><span class="layout-mini diagonal"></span><b>Диагональ</b><small>динамично</small></button>
+          <button type="button" class="layout-choice" data-layout="split"><span class="layout-mini split"></span><b>Разделение</b><small>структурно</small></button>
+          <button type="button" class="layout-choice" data-layout="center"><span class="layout-mini center"></span><b>Центр</b><small>спокойно</small></button>
+        </div>
+        <label class="stage-complete"><input type="checkbox" data-progress="hierarchy"> <span>Я выбрал(а) порядок чтения, композицию и палитру</span></label>
+      </section>
+
+      <section class="panel" id="canva" data-stage="canva">
+        <div class="section-heading">
+          <span class="step-number">04</span>
+          <div><div class="eyebrow">повтори маршрут из видео</div><h2>Сборка карточки в Canva</h2><p>Иди сверху вниз. После каждого шага ставь отметку - так ничего не потеряется.</p></div>
+        </div>
+
+        <div class="timeline-board">
+          <label class="timeline-step"><input type="checkbox" data-canva-step="1"><span>01</span><div><b>Создай холст</b><p>Пользовательский размер: <strong>1200 × 1600 px</strong>, вертикальная ориентация.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="2"><span>02</span><div><b>Загрузи фото товара</b><p>Выбери чёткий кадр без сильных теней и проверь края объекта.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="3"><span>03</span><div><b>Удали фон</b><p>В Canva: выдели фото → «Редактировать» → «Удаление фона». Если функция недоступна - используй запасной сервис.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="4"><span>04</span><div><b>Поставь товар в фокус</b><p>Сделай объект крупным, но оставь место для заголовка и коротких фактов.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="5"><span>05</span><div><b>Собери фон</b><p>Возьми светлую базу, одну крупную фигуру за товаром и 2-4 декоративных акцента.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="6"><span>06</span><div><b>Настрой глубину</b><p>Используй слои, поворот и прозрачность. В уроке акценты частично уходят за границы.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="7"><span>07</span><div><b>Добавь текст</b><p>Крупный заголовок, затем 2-3 факта. Не используй больше двух начертаний одного шрифта.</p></div></label>
+          <label class="timeline-step"><input type="checkbox" data-canva-step="8"><span>08</span><div><b>Выровняй и сгруппируй</b><p>Проверь поля, расстояния и слои. Связанные элементы объедини в группу.</p></div></label>
+        </div>
+
+        <div class="canva-meter">
+          <div><span>Сборка</span><b id="canvaMeterText">0 / 8</b></div>
+          <div class="progress-track"><i id="canvaMeterBar"></i></div>
+        </div>
+
+        <div class="tool-shelf">
+          <div class="tool-shelf__intro"><span class="eyebrow">набор инструментов</span><h3>Открой только то, что нужно</h3></div>
+          <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer"><span class="tool-icon">C</span><div><b>Canva</b><small>основной редактор</small></div><i>↗</i></a>
+          <a href="https://www.remove.bg/" target="_blank" rel="noopener noreferrer"><span class="tool-icon">BG</span><div><b>remove.bg</b><small>запасное удаление фона</small></div><i>↗</i></a>
+          <a href="https://color.adobe.com/create/color-wheel" target="_blank" rel="noopener noreferrer"><span class="tool-icon">●</span><div><b>Adobe Color</b><small>палитра и контраст</small></div><i>↗</i></a>
+        </div>
+        <label class="stage-complete"><input type="checkbox" data-progress="canva"> <span>Ручная версия карточки собрана в Canva</span></label>
+      </section>
+
+      <section class="panel" id="ai" data-stage="ai">
+        <div class="section-heading">
+          <span class="step-number">05</span>
+          <div><div class="eyebrow">ии предлагает - дизайнер решает</div><h2>Промт-конструктор</h2><p>Промт - это точное задание для нейросети. Чем понятнее цель, композиция и ограничения, тем меньше случайностей.</p></div>
+        </div>
+
+        <div class="prompt-formula" aria-label="Формула хорошего промта">
+          <span>ЧТО</span><i>+</i><span>ДЛЯ КОГО</span><i>+</i><span>СТИЛЬ</span><i>+</i><span>КОМПОЗИЦИЯ</span><i>+</i><span>ОГРАНИЧЕНИЯ</span>
+        </div>
+
+        <div class="ai-layout">
+          <div class="prompt-fields">
+            <label>Задача<textarea id="promptTask" data-save="promptTask" rows="2" placeholder="Создай фон для карточки товара..."></textarea></label>
+            <label>Стиль<input id="promptStyle" data-save="promptStyle" type="text" placeholder="Минималистичный, мягкий, современный"></label>
+            <label>Композиция<input id="promptComposition" data-save="promptComposition" type="text" placeholder="Светлый фон, свободный центр, акценты по краям"></label>
+            <label>Цвета<input id="promptColors" data-save="promptColors" type="text" placeholder="Пастельный бежевый, зелёный, розовый"></label>
+            <label>Ограничения<input id="promptLimits" data-save="promptLimits" type="text" value="без текста, без людей, без логотипов, без водяных знаков"></label>
+            <button class="primary-button" id="generatePrompt" type="button">Собрать промт <span>✦</span></button>
+          </div>
+
+          <div class="prompt-output browser-window">
+            <div class="browser-bar"><span></span><span></span><span></span><b>prompt.txt</b></div>
+            <div id="promptResult" class="prompt-result">Заполни поля слева - здесь появится готовый промт для Canva Magic Media или 24AI.</div>
+            <button class="copy-button" id="copyPrompt" type="button">Копировать промт</button>
+          </div>
+        </div>
+
+        <div class="route-compare">
+          <article><span class="route-tag manual">ручной маршрут</span><h3>Canva</h3><ul><li>точный контроль слоёв</li><li>легко исправлять детали</li><li>лучше для финальной сборки</li></ul></article>
+          <div class="versus">VS</div>
+          <article><span class="route-tag ai-tag">ии-маршрут</span><h3>24AI</h3><ul><li>быстрые варианты идеи</li><li>плакатная обработка товара</li><li>нужно проверять текст и факты</li></ul><a href="https://app.24ai.tech/ru/ai-studio" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a></article>
+        </div>
+
+        <div class="ai-safety">
+          <b>Правило автора</b>
+          <p>Нейросеть может придумать буквы, состав или свойства. Не выдавай выдумку за факт: сравни результат с брифом и перепиши весь важный текст вручную.</p>
+        </div>
+        <label class="stage-complete"><input type="checkbox" data-progress="ai"> <span>Я сделал(а) минимум 2 варианта и выбрал(а) лучший осознанно</span></label>
+      </section>
+
+      <section class="panel" id="quality" data-stage="quality">
+        <div class="section-heading">
+          <span class="step-number">06</span>
+          <div><div class="eyebrow">убрать лишнее - тоже дизайн</div><h2>Контроль качества</h2><p>Проведи три теста. Если хотя бы один не пройден - вернись в макет и исправь только проблемный слой.</p></div>
+        </div>
+
+        <div class="test-grid">
+          <article class="test-card"><span>3</span><h3>Тест трёх секунд</h3><p>Покажи карточку другу на 3 секунды. Он назвал товар и главную пользу?</p><label><input type="checkbox" data-quality-step="1"> Да, смысл понятен</label></article>
+          <article class="test-card"><span>◐</span><h3>Тест прищура</h3><p>Прищурься. Товар и заголовок всё ещё заметнее декора?</p><label><input type="checkbox" data-quality-step="2"> Да, фокус сохранился</label></article>
+          <article class="test-card"><span>↔</span><h3>Тест расстояний</h3><p>Одинаковые поля, ровные интервалы и ни один текст не прилип к краю?</p><label><input type="checkbox" data-quality-step="3"> Да, сетка держится</label></article>
+        </div>
+
+        <div class="quality-checklist">
+          <div class="window-title"><b>Финальный preflight</b><small>отметь перед экспортом</small></div>
+          <label><input type="checkbox" data-quality-step="4"><span>Формат 1200 × 1600 px</span></label>
+          <label><input type="checkbox" data-quality-step="5"><span>Один главный заголовок</span></label>
+          <label><input type="checkbox" data-quality-step="6"><span>Не больше 2-3 основных цветов</span></label>
+          <label><input type="checkbox" data-quality-step="7"><span>Текст читается на фоне</span></label>
+          <label><input type="checkbox" data-quality-step="8"><span>Края товара вырезаны аккуратно</span></label>
+          <label><input type="checkbox" data-quality-step="9"><span>Все свойства товара подтверждены</span></label>
+          <label><input type="checkbox" data-quality-step="10"><span>Нет случайных ИИ-букв, логотипов и водяных знаков</span></label>
+          <label><input type="checkbox" data-quality-step="11"><span>Экспорт в PNG выполнен</span></label>
+        </div>
+        <div class="canva-meter quality-meter"><div><span>Проверка</span><b id="qualityMeterText">0 / 11</b></div><div class="progress-track"><i id="qualityMeterBar"></i></div></div>
+        <label class="stage-complete"><input type="checkbox" data-progress="quality"> <span>Карточка прошла все три теста и готова к показу</span></label>
+      </section>
+
+      <section class="panel finish-panel" id="finish" data-stage="finish">
+        <div class="section-heading">
+          <span class="step-number">07</span>
+          <div><div class="eyebrow">зафиксируй результат</div><h2>Паспорт проекта</h2><p>Оцени работу честно. Высокий балл - не цель сам по себе; он показывает, что улучшить в следующей версии.</p></div>
+        </div>
+
+        <div class="rubric-layout">
+          <div class="rubric-card">
+            <div class="rubric-row"><label for="scoreFocus"><b>Фокус</b><small>сразу понятен товар</small></label><input id="scoreFocus" data-score="focus" type="range" min="0" max="3" value="0"><output>0</output></div>
+            <div class="rubric-row"><label for="scoreHierarchy"><b>Иерархия</b><small>понятен порядок чтения</small></label><input id="scoreHierarchy" data-score="hierarchy" type="range" min="0" max="3" value="0"><output>0</output></div>
+            <div class="rubric-row"><label for="scoreStyle"><b>Стиль</b><small>цвета и формы работают вместе</small></label><input id="scoreStyle" data-score="style" type="range" min="0" max="3" value="0"><output>0</output></div>
+            <div class="rubric-row"><label for="scoreAccuracy"><b>Точность</b><small>нет выдуманных фактов</small></label><input id="scoreAccuracy" data-score="accuracy" type="range" min="0" max="3" value="0"><output>0</output></div>
+          </div>
+          <div class="score-orbit">
+            <div class="score-circle"><strong id="totalScore">0</strong><span>/ 12</span></div>
+            <h3 id="scoreTitle">Версия 0.1</h3>
+            <p id="scoreHint">Двигай ползунки и найди следующий шаг улучшения.</p>
+          </div>
+        </div>
+
+        <div class="reflection-grid">
+          <label>Что получилось сильнее всего?<textarea data-save="reflectionWin" rows="3" placeholder="Мой главный успех..."></textarea></label>
+          <label>Что я изменю в версии 2.0?<textarea data-save="reflectionNext" rows="3" placeholder="Следующее улучшение..."></textarea></label>
+          <label class="wide">Ссылка на проект в Canva - по желанию<input data-save="projectLink" type="url" placeholder="https://www.canva.com/design/..."></label>
+        </div>
+
+        <div class="finish-action">
+          <div><span class="eyebrow">финальный коммит</span><h3>Готов(а) показать проект?</h3><p>Нажми кнопку - лист проверит обязательные этапы и соберёт короткое резюме.</p></div>
+          <button class="primary-button" id="finishProject" type="button">Проект готов <span>✓</span></button>
+        </div>
+        <div id="finalMessage" class="final-message" aria-live="polite"></div>
+        <label class="stage-complete"><input type="checkbox" data-progress="finish"> <span>Я сохранил(а) PNG и могу объяснить каждое решение в макете</span></label>
+      </section>
+
+      <footer>
+        <div><b>Креайтивика</b><span>Идея → проект → результат</span></div>
+        <p>Интерактивный лист работает без регистрации. Ответы хранятся только в этом браузере.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
