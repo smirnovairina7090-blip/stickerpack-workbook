@@ -136,85 +136,63 @@
       : "Попробуй ещё: главный смысл должен быть один.";
   }
 
-  const hierarchyList = $("#hierarchyList");
-  if (Array.isArray(state.hierarchyOrder)) {
-    state.hierarchyOrder.forEach((key) => {
-      const item = hierarchyList.querySelector(`[data-key="${key}"]`);
-      if (item) hierarchyList.append(item);
-    });
-  }
+  const hierarchyScenarios = $$("[data-scenario]");
+  const hierarchyCopy = {
+    focus: {
+      correct: "Верно. Товар и главная польза создают первую точку входа.",
+      wrong: "Если усилить всё сразу, зритель снова потеряет главный смысл."
+    },
+    facts: {
+      correct: "Верно. Двух-трёх коротких фактов достаточно, чтобы подтвердить пользу.",
+      wrong: "Мелкий или наложенный текст не решает проблему перегруженности."
+    },
+    decor: {
+      correct: "Верно. Декор должен направлять взгляд и оставаться на втором плане.",
+      wrong: "Чем активнее декор, тем сильнее он спорит с товаром."
+    }
+  };
 
-  hierarchyList.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-move]");
-    if (!button) return;
-    const item = button.closest("li");
-    if (button.dataset.move === "up" && item.previousElementSibling) item.parentNode.insertBefore(item, item.previousElementSibling);
-    if (button.dataset.move === "down" && item.nextElementSibling) item.parentNode.insertBefore(item.nextElementSibling, item);
-    saveHierarchyOrder();
-  });
+  hierarchyScenarios.forEach((card) => {
+    const key = card.dataset.scenario;
+    const savedAnswer = state.hierarchyAnswers?.[key];
+    if (savedAnswer) applyHierarchyAnswer(card, savedAnswer);
 
-  function saveHierarchyOrder() {
-    state.hierarchyOrder = $$("li", hierarchyList).map((item) => item.dataset.key);
-    $$("li", hierarchyList).forEach((item, index) => item.querySelector(".rank").textContent = String(index + 1));
-    updateMoveButtons();
-    renderHierarchyPreview();
-    saveState();
-  }
-
-  function updateMoveButtons() {
-    const items = $$("li", hierarchyList);
-    items.forEach((item, index) => {
-      item.querySelector('[data-move="up"]').disabled = index === 0;
-      item.querySelector('[data-move="down"]').disabled = index === items.length - 1;
-    });
-  }
-
-  function renderHierarchyPreview() {
-    const order = state.hierarchyOrder || ["product", "headline", "facts", "decor"];
-    const rank = Object.fromEntries(order.map((key, index) => [key, index]));
-    const labels = { product: "Фото товара", headline: "Главная польза", facts: "Факты", decor: "Декор" };
-    $$('[data-preview-key]').forEach((element) => {
-      const index = rank[element.dataset.previewKey] ?? 3;
-      element.dataset.rank = String(index + 1);
-      const badge = element.querySelector(".attention-rank");
-      if (badge) badge.textContent = String(index + 1);
-    });
-    const route = $("#attentionRoute");
-    if (route) route.textContent = order.map((key, index) => `${index + 1}. ${labels[key]}`).join(" → ");
-  }
-
-  $("#checkHierarchy").addEventListener("click", () => {
-    const order = $$("li", hierarchyList).map((item) => item.dataset.key);
-    const firstPairOkay = order.slice(0, 2).includes("product") && order.slice(0, 2).includes("headline");
-    const correct = firstPairOkay && order[2] === "facts" && order[3] === "decor";
-    $("#hierarchyFeedback").textContent = correct
-      ? "Отлично: товар и польза ведут взгляд, факты объясняют, декор поддерживает."
-      : "Исправь маршрут: товар и польза должны занять первые два места, факты - третье, декор - четвёртое.";
-  });
-
-  $$('[data-layout]').forEach((button) => {
-    if ((state.layout || "diagonal") === button.dataset.layout) button.classList.add("is-selected");
-    else button.classList.remove("is-selected");
-    button.addEventListener("click", () => {
-      $$('[data-layout]').forEach((item) => item.classList.remove("is-selected"));
-      button.classList.add("is-selected");
-      state.layout = button.dataset.layout;
-      applyLayout();
-      saveState();
+    $$(".scenario-options button", card).forEach((button) => {
+      button.addEventListener("click", () => {
+        $$(".scenario-options button", card).forEach((item) => item.classList.remove("is-correct", "is-wrong"));
+        const answer = button.dataset.answer;
+        button.classList.add(answer === "correct" ? "is-correct" : "is-wrong");
+        state.hierarchyAnswers = state.hierarchyAnswers || {};
+        state.hierarchyAnswers[key] = answer;
+        applyHierarchyAnswer(card, answer);
+        updateHierarchyTrainer();
+        saveState();
+      });
     });
   });
 
-  function applyLayout() {
-    const poster = $("#livePoster");
-    poster.classList.remove("layout-diagonal", "layout-split", "layout-center");
-    const layout = state.layout || "diagonal";
-    poster.classList.add(`layout-${layout}`);
-    const messages = {
-      diagonal: "Диагональ ведёт взгляд от заголовка к товару и фактам.",
-      split: "Разделение собирает элементы в ровные смысловые зоны.",
-      center: "Центр сначала показывает товар, затем объясняет его пользу."
-    };
-    $("#layoutFeedback").textContent = messages[layout];
+  function applyHierarchyAnswer(card, answer) {
+    const key = card.dataset.scenario;
+    const feedback = $("[data-scenario-feedback]", card);
+    feedback.textContent = hierarchyCopy[key][answer];
+    feedback.classList.toggle("is-correct", answer === "correct");
+    feedback.classList.toggle("is-wrong", answer !== "correct");
+    const selected = $(".scenario-options button.is-correct,.scenario-options button.is-wrong", card);
+    if (!selected && state.hierarchyAnswers?.[key]) {
+      const savedButton = $(`.scenario-options button[data-answer="${state.hierarchyAnswers[key]}"]`, card);
+      if (savedButton) savedButton.classList.add(answer === "correct" ? "is-correct" : "is-wrong");
+    }
+  }
+
+  function updateHierarchyTrainer() {
+    const solved = hierarchyScenarios.filter((card) => state.hierarchyAnswers?.[card.dataset.scenario] === "correct").length;
+    $("#hierarchySolved").textContent = String(solved);
+    $("#hierarchyTrainerBar").style.width = `${solved / hierarchyScenarios.length * 100}%`;
+    const result = $("#hierarchyResult");
+    result.classList.toggle("is-complete", solved === hierarchyScenarios.length);
+    $("#hierarchyResultText").textContent = solved === hierarchyScenarios.length
+      ? "Формула собрана: один фокус → короткая польза → 2-3 факта → спокойный декор."
+      : `Верных решений: ${solved} из ${hierarchyScenarios.length}. Ошибку можно исправить повторным выбором.`;
   }
 
   const canvaChecks = $$('[data-canva-step]');
@@ -358,8 +336,7 @@
   if (state.generatedPrompt) $("#promptResult").textContent = state.generatedPrompt;
   updateBenefitCounter();
   updateBrief();
-  saveHierarchyOrder();
-  applyLayout();
+  updateHierarchyTrainer();
   updateCanvaMeter();
   updateQualityMeter();
   updateProgress();
