@@ -89,8 +89,16 @@
     const productPreview = $('[data-preview="product"]');
     const headlinePreview = $('[data-preview="headline"]');
     const factsPreview = $('[data-preview="facts"]');
-    if (productPreview) productPreview.textContent = product === "..." ? "ВАШ\nТОВАР" : product.toUpperCase();
-    if (headlinePreview) headlinePreview.textContent = benefit === "..." ? "ГЛАВНАЯ ПОЛЬЗА" : benefit.toUpperCase();
+    if (productPreview) {
+      const productLabel = product === "..." ? "ВАШ ТОВАР" : product.toUpperCase();
+      productPreview.textContent = productLabel.length > 28 ? `${productLabel.slice(0, 28)}…` : productLabel;
+      productPreview.title = productLabel;
+    }
+    if (headlinePreview) {
+      const headlineLabel = benefit === "..." ? "ГЛАВНАЯ ПОЛЬЗА" : benefit.toUpperCase();
+      headlinePreview.textContent = headlineLabel;
+      headlinePreview.title = headlineLabel;
+    }
     if (factsPreview) {
       const facts = ["fact1", "fact2", "fact3"]
         .map((key) => $(`[data-save="${key}"]`)?.value.trim())
