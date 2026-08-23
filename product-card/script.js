@@ -51,7 +51,6 @@
       saveState();
       updateBrief();
       if (key === "mainBenefit") updateBenefitCounter();
-      if (["bgColor", "accentColor", "textColor"].includes(key)) updatePosterColors();
     });
   });
 
@@ -173,10 +172,15 @@
   function renderHierarchyPreview() {
     const order = state.hierarchyOrder || ["product", "headline", "facts", "decor"];
     const rank = Object.fromEntries(order.map((key, index) => [key, index]));
-    $$('[data-preview-key]').forEach((element) => {
+    const labels = { product: "Фото товара", headline: "Главная польза", facts: "Факты", decor: "Декор" };
+    $('[data-preview-key]').forEach((element) => {
       const index = rank[element.dataset.previewKey] ?? 3;
       element.dataset.rank = String(index + 1);
+      const badge = element.querySelector(".attention-rank");
+      if (badge) badge.textContent = String(index + 1);
     });
+    const route = $("#attentionRoute");
+    if (route) route.textContent = order.map((key, index) => `${index + 1}. ${labels[key]}`).join(" → ");
   }
 
   $("#checkHierarchy").addEventListener("click", () => {
@@ -211,42 +215,6 @@
       center: "Центр сначала показывает товар, затем объясняет его пользу."
     };
     $("#layoutFeedback").textContent = messages[layout];
-  }
-
-  function hexToRgb(hex) {
-    const clean = hex.replace("#", "");
-    const number = parseInt(clean.length === 3 ? clean.split("").map((c) => c + c).join("") : clean, 16);
-    return [(number >> 16) & 255, (number >> 8) & 255, number & 255];
-  }
-
-  function luminance(hex) {
-    return hexToRgb(hex).map((value) => {
-      const channel = value / 255;
-      return channel <= .03928 ? channel / 12.92 : Math.pow((channel + .055) / 1.055, 2.4);
-    }).reduce((sum, value, index) => sum + value * [.2126, .7152, .0722][index], 0);
-  }
-
-  function contrastRatio(a, b) {
-    const l1 = luminance(a);
-    const l2 = luminance(b);
-    return (Math.max(l1, l2) + .05) / (Math.min(l1, l2) + .05);
-  }
-
-  function updatePosterColors() {
-    const bg = $("#bgColor").value;
-    const accent = $("#accentColor").value;
-    const text = $("#textColor").value;
-    const poster = $("#livePoster");
-    poster.style.background = bg;
-    poster.style.setProperty("--poster-accent", accent);
-    poster.style.setProperty("--poster-text", text);
-    poster.style.color = text;
-    const ratio = contrastRatio(bg, text);
-    const badge = $("#contrastBadge");
-    badge.textContent = `Контраст ${ratio.toFixed(1)}:1`;
-    badge.classList.toggle("is-good", ratio >= 4.5);
-    badge.classList.toggle("is-low", ratio < 4.5);
-    badge.title = ratio >= 4.5 ? "Хорошо читается" : "Сделай фон и текст контрастнее";
   }
 
   const canvaChecks = $$('[data-canva-step]');
@@ -392,7 +360,6 @@
   updateBrief();
   saveHierarchyOrder();
   applyLayout();
-  updatePosterColors();
   updateCanvaMeter();
   updateQualityMeter();
   updateProgress();
