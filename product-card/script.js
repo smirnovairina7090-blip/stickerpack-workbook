@@ -173,7 +173,7 @@
     const order = state.hierarchyOrder || ["product", "headline", "facts", "decor"];
     const rank = Object.fromEntries(order.map((key, index) => [key, index]));
     const labels = { product: "Фото товара", headline: "Главная польза", facts: "Факты", decor: "Декор" };
-    $('[data-preview-key]').forEach((element) => {
+    $$('[data-preview-key]').forEach((element) => {
       const index = rank[element.dataset.previewKey] ?? 3;
       element.dataset.rank = String(index + 1);
       const badge = element.querySelector(".attention-rank");
