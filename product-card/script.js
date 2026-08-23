@@ -88,8 +88,20 @@
 
     const productPreview = $('[data-preview="product"]');
     const headlinePreview = $('[data-preview="headline"]');
+    const factsPreview = $('[data-preview="facts"]');
     if (productPreview) productPreview.textContent = product === "..." ? "ВАШ\nТОВАР" : product.toUpperCase();
-    if (headlinePreview) headlinePreview.textContent = benefit === "..." ? "ГЛАВНАЯ\nПОЛЬЗА" : benefit.toUpperCase();
+    if (headlinePreview) headlinePreview.textContent = benefit === "..." ? "ГЛАВНАЯ ПОЛЬЗА" : benefit.toUpperCase();
+    if (factsPreview) {
+      const facts = ["fact1", "fact2", "fact3"]
+        .map((key) => $(`[data-save="${key}"]`)?.value.trim())
+        .filter(Boolean);
+      factsPreview.replaceChildren();
+      (facts.length ? facts : ["факт 01", "факт 02", "факт 03"]).forEach((fact) => {
+        const chip = document.createElement("span");
+        chip.textContent = fact;
+        factsPreview.append(chip);
+      });
+    }
   }
 
   function updateBenefitCounter() {
@@ -136,27 +148,25 @@
   function saveHierarchyOrder() {
     state.hierarchyOrder = $$("li", hierarchyList).map((item) => item.dataset.key);
     $$("li", hierarchyList).forEach((item, index) => item.querySelector(".rank").textContent = String(index + 1));
+    updateMoveButtons();
     renderHierarchyPreview();
     saveState();
+  }
+
+  function updateMoveButtons() {
+    const items = $$("li", hierarchyList);
+    items.forEach((item, index) => {
+      item.querySelector('[data-move="up"]').disabled = index === 0;
+      item.querySelector('[data-move="down"]').disabled = index === items.length - 1;
+    });
   }
 
   function renderHierarchyPreview() {
     const order = state.hierarchyOrder || ["product", "headline", "facts", "decor"];
     const rank = Object.fromEntries(order.map((key, index) => [key, index]));
-    const sizes = [1.08, 1, .92, .82];
-    const product = $('[data-preview="product"]');
-    const headline = $('[data-preview="headline"]');
-    const facts = $('[data-preview="facts"]');
-    const decor = $(".poster-decor");
-    [
-      [product, "product"], [headline, "headline"], [facts, "facts"], [decor, "decor"]
-    ].forEach(([element, key]) => {
-      if (!element) return;
-      const index = rank[key] ?? 3;
-      element.style.opacity = String(1 - index * .12);
-      element.style.filter = index === 3 ? "saturate(.75)" : "none";
-      if (key === "headline") element.style.fontSize = `clamp(27px,${4.2 - index * .35}vw,${58 - index * 5}px)`;
-      else if (key === "product") element.style.scale = String(sizes[index]);
+    $$('[data-preview-key]').forEach((element) => {
+      const index = rank[element.dataset.previewKey] ?? 3;
+      element.dataset.rank = String(index + 1);
     });
   }
 
@@ -165,8 +175,8 @@
     const firstPairOkay = order.slice(0, 2).includes("product") && order.slice(0, 2).includes("headline");
     const correct = firstPairOkay && order[2] === "facts" && order[3] === "decor";
     $("#hierarchyFeedback").textContent = correct
-      ? "Маршрут работает: товар и польза ведут, факты объясняют, декор поддерживает."
-      : "Пересобери: в первых двух позициях нужны товар и польза, затем факты, а декор - последним.";
+      ? "Отлично: товар и польза ведут взгляд, факты объясняют, декор поддерживает."
+      : "Исправь маршрут: товар и польза должны занять первые два места, факты - третье, декор - четвёртое.";
   });
 
   $$('[data-layout]').forEach((button) => {
@@ -184,7 +194,14 @@
   function applyLayout() {
     const poster = $("#livePoster");
     poster.classList.remove("layout-diagonal", "layout-split", "layout-center");
-    poster.classList.add(`layout-${state.layout || "diagonal"}`);
+    const layout = state.layout || "diagonal";
+    poster.classList.add(`layout-${layout}`);
+    const messages = {
+      diagonal: "Диагональ ведёт взгляд от заголовка к товару и фактам.",
+      split: "Разделение собирает элементы в ровные смысловые зоны.",
+      center: "Центр сначала показывает товар, затем объясняет его пользу."
+    };
+    $("#layoutFeedback").textContent = messages[layout];
   }
 
   function hexToRgb(hex) {
