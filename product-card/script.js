@@ -98,7 +98,8 @@
       factsPreview.replaceChildren();
       (facts.length ? facts : ["факт 01", "факт 02", "факт 03"]).forEach((fact) => {
         const chip = document.createElement("span");
-        chip.textContent = fact;
+        chip.textContent = fact.length > 20 ? `${fact.slice(0, 20)}…` : fact;
+        chip.title = fact;
         factsPreview.append(chip);
       });
     }
