@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#332e3b">
   <meta name="description" content="Интерактивная проектная мастерская Креайтивики: создаём рекламную карточку товара в Canva и с помощью ИИ.">
   <title>Карточка товара: проектная мастерская</title>
-  <link rel="stylesheet" href="styles.css?v=20260823-4">
+  <link rel="stylesheet" href="styles.css?v=20260823-5">
 </head>
 <body>
   <div class="cursor-dot" aria-hidden="true"></div>
@@ -164,20 +164,30 @@
             <p class="quiz-feedback" id="hierarchyFeedback" aria-live="polite">Перемещай строки - номера на макете обновятся сразу.</p>
           </div>
 
-          <div class="live-poster-wrap">
-            <div class="live-poster layout-diagonal" id="livePoster" aria-label="Предпросмотр иерархии">
-              <div class="poster-decor poster-layer" data-preview-key="decor" data-rank="4" aria-label="Декор"><span></span><span></span><span></span></div>
-              <div class="poster-product poster-layer" data-preview="product" data-preview-key="product" data-rank="1">ВАШ ТОВАР</div>
-              <h3 class="poster-layer" data-preview="headline" data-preview-key="headline" data-rank="2">ГЛАВНАЯ ПОЛЬЗА</h3>
-              <div class="poster-facts poster-layer" data-preview="facts" data-preview-key="facts" data-rank="3"><span>факт 01</span><span>факт 02</span><span>факт 03</span></div>
-              <small>визуальный черновик 3:4</small>
+          <div class="attention-preview">
+            <div class="attention-preview__head">
+              <div><span>Карта внимания</span><b>Как зритель прочитает карточку</b></div>
+              <small id="attentionRoute">1. Фото товара → 2. Главная польза → 3. Факты → 4. Декор</small>
             </div>
-            <div class="poster-controls">
-              <label>Фон <input type="color" id="bgColor" data-save="bgColor" value="#f6f4e9"></label>
-              <label>Акцент <input type="color" id="accentColor" data-save="accentColor" value="#94c122"></label>
-              <label>Текст <input type="color" id="textColor" data-save="textColor" value="#332e3b"></label>
-              <span id="contrastBadge" class="contrast-badge">Контраст: проверяю</span>
+            <div class="attention-board layout-diagonal" id="livePoster" aria-label="Карта визуальной иерархии">
+              <article class="attention-item attention-product" data-preview-key="product" data-rank="1">
+                <span class="attention-rank">1</span><i class="attention-symbol">▣</i>
+                <div><b>Фото товара</b><small data-preview="product">ВАШ ТОВАР</small></div>
+              </article>
+              <article class="attention-item attention-headline" data-preview-key="headline" data-rank="2">
+                <span class="attention-rank">2</span><i class="attention-symbol">Aa</i>
+                <div><b>Главная польза</b><small data-preview="headline">ГЛАВНАЯ ПОЛЬЗА</small></div>
+              </article>
+              <article class="attention-item attention-facts-card" data-preview-key="facts" data-rank="3">
+                <span class="attention-rank">3</span><i class="attention-symbol">•••</i>
+                <div><b>Проверяемые факты</b><div class="attention-facts" data-preview="facts"><span>факт 01</span><span>факт 02</span><span>факт 03</span></div></div>
+              </article>
+              <article class="attention-item attention-decor" data-preview-key="decor" data-rank="4">
+                <span class="attention-rank">4</span><i class="attention-symbol">✦</i>
+                <div><b>Декор</b><small>поддерживает, но не спорит</small></div>
+              </article>
             </div>
+            <p class="attention-caption"><b>Смотри на размер акцента и номер.</b> Перемещай строки слева - карта сразу покажет новый порядок внимания.</p>
           </div>
         </div>
 
@@ -187,7 +197,7 @@
           <button type="button" class="layout-choice" data-layout="center"><span class="layout-mini center"></span><b>Центр</b><small>спокойно</small></button>
         </div>
         <p class="layout-feedback" id="layoutFeedback" aria-live="polite">Диагональ ведёт взгляд от заголовка к товару и фактам.</p>
-        <label class="stage-complete"><input type="checkbox" data-progress="hierarchy"> <span>Я выбрал(а) порядок чтения, композицию и палитру</span></label>
+        <label class="stage-complete"><input type="checkbox" data-progress="hierarchy"> <span>Я выбрал(а) порядок чтения и композицию</span></label>
       </section>
 
       <section class="panel" id="canva" data-stage="canva">
@@ -329,6 +339,6 @@
     </main>
   </div>
 
-  <script src="script.js?v=20260823-4"></script>
+  <script src="script.js?v=20260823-5"></script>
 </body>
 </html>
