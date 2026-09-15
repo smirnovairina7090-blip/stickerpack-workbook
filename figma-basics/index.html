@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11131a">
+  <title>Figma: инструменты и определения</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">FIGMA · ИНТЕРАКТИВНАЯ ПРАКТИКА</div>
+        <h1>Инструменты Figma без зубрёжки</h1>
+        <p>Сначала пройди флэш-карточки на скорость, затем проверь себя в мини-квизе. Здесь только то, что реально понадобится при работе с интерфейсами.</p>
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <div class="figma-mark">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div>
+          <strong>12 терминов</strong>
+          <small>+ 12 вопросов</small>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel intro-panel">
+      <div>
+        <div class="section-kicker">ИГРА 1</div>
+        <h2>Флэш-карточки: объясни быстрее всех</h2>
+        <p>Введите имя, запустите таймер и объясняйте термин до открытия ответа. Карточку можно отметить как изученную или отправить на повтор. Лучшие результаты сохраняются на этом устройстве.</p>
+      </div>
+      <div class="name-box">
+        <label for="studentName">Имя участника</label>
+        <input id="studentName" type="text" maxlength="24" placeholder="Например, Саша" autocomplete="off">
+      </div>
+    </section>
+
+    <section class="flash-layout">
+      <article class="panel flash-panel">
+        <div class="game-topline">
+          <div>
+            <span class="meta-label">ПРОГРЕСС</span>
+            <strong id="flashProgress">0 / 12</strong>
+          </div>
+          <div class="timer-box" aria-live="polite">
+            <span class="meta-label">ВРЕМЯ</span>
+            <strong id="timer">00:00.0</strong>
+          </div>
+        </div>
+
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+
+        <button class="flash-card" id="flashCard" type="button" aria-label="Открыть определение">
+          <span class="card-chip" id="cardCategory">Инструмент</span>
+          <span class="card-term" id="cardTerm">Нажмите «Начать игру»</span>
+          <span class="card-definition" id="cardDefinition">После запуска здесь появится термин. Сначала объясните его своими словами, затем переверните карточку.</span>
+          <span class="tap-hint" id="tapHint">Нажмите на карточку, чтобы открыть ответ</span>
+        </button>
+
+        <div class="flash-actions">
+          <button class="btn btn-primary" id="startFlash" type="button">Начать игру</button>
+          <button class="btn btn-soft" id="repeatCard" type="button" disabled>Повторить позже</button>
+          <button class="btn btn-success" id="knowCard" type="button" disabled>Знаю</button>
+          <button class="btn btn-ghost" id="resetFlash" type="button">Сбросить</button>
+        </div>
+
+        <div class="result-banner" id="flashResult" hidden></div>
+      </article>
+
+      <aside class="panel leaderboard-panel">
+        <div class="section-kicker">ЛОКАЛЬНЫЙ РЕЙТИНГ</div>
+        <h3>Лучшее время</h3>
+        <p class="side-note">Результаты сохраняются только в этом браузере. Для соревнования в классе удобно использовать один компьютер или вносить результаты по очереди.</p>
+        <ol class="leaderboard" id="leaderboard"></ol>
+        <button class="text-button" id="clearLeaderboard" type="button">Очистить рейтинг</button>
+      </aside>
+    </section>
+
+    <section class="panel quiz-heading">
+      <div>
+        <div class="section-kicker">ИГРА 2</div>
+        <h2>Мини-квиз по основным инструментам</h2>
+        <p>Часть вопросов проверяет названия инструментов, часть - выбор решения в реальной дизайнерской ситуации.</p>
+      </div>
+      <div class="quiz-score-box">
+        <span class="meta-label">СЧЁТ</span>
+        <strong id="quizScore">0 / 12</strong>
+      </div>
+    </section>
+
+    <section class="panel quiz-panel">
+      <div class="quiz-progress-row">
+        <span id="quizCounter">Вопрос 1 из 12</span>
+        <div class="dots" id="quizDots" aria-hidden="true"></div>
+      </div>
+
+      <div id="quizContent">
+        <div class="question-tag" id="questionTag">Инструменты</div>
+        <h3 class="question" id="questionText">Нажмите «Начать квиз», чтобы получить первый вопрос.</h3>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback" hidden></div>
+      </div>
+
+      <div class="quiz-actions">
+        <button class="btn btn-primary" id="startQuiz" type="button">Начать квиз</button>
+        <button class="btn btn-primary" id="nextQuestion" type="button" hidden>Следующий вопрос</button>
+        <button class="btn btn-ghost" id="restartQuiz" type="button" hidden>Пройти ещё раз</button>
+      </div>
+    </section>
+
+    <section class="teacher-note">
+      <strong>Для преподавателя.</strong>
+      <span>Флэш-карточки удобно проводить как короткую гонку: ученик сначала объясняет термин без подсказки, только потом открывает определение. В квизе просите не просто назвать вариант, а коротко объяснить, почему выбран именно этот инструмент.</span>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
