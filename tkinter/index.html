@@ -220,7 +220,7 @@ $("methodList").innerHTML=methods.map(function(m){return '<div class="method"><b
 var exercises=[
 {title:"Создай главное окно",prompt:"Допиши часть после знака равно:",before:"root = ",answer:["tk.Tk()"],hint:"У сокращения tk есть класс Tk. Не забудь круглые скобки."},
 {title:"Измени заголовок",prompt:"Введи команду, чтобы назвать окно «Секретный проект»:",before:"",answer:['root.title("Секретный проект")',"root.title('Секретный проект')"],hint:"Используй метод title() у переменной root."},
-{title:"Задай размер",prompt:"Введи команду для окна 500 на 300 пикселей:",before:"",answer:['root.geometry("500x300')],hint:"Метод geometry() принимает строку из ширины и высоты через латинскую x."},
+{title:"Задай размер",prompt:"Введи команду для окна 500 на 300 пикселей:",before:"",answer:[],hint:"Метод geometry() принимает строку из ширины и высоты через латинскую x."},
 {title:"Запусти цикл событий",prompt:"Какая строка должна стоять в конце программы?",before:"",answer:["root.mainloop()"],hint:"Название метода состоит из main и loop, затем круглые скобки."}
 ];
 exercises[2].answer=['root.geometry("500x300")',"root.geometry('500x300')"];
